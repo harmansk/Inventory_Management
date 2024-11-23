@@ -31,10 +31,7 @@ class Item(BaseModel):
 inventory = []
 inventory.extend([Item(**item) for item in load_inventory_from_excel(inventory_file_name,output_dataframe=False)])
 
-#if inventory:
-#    last_record_id = max(item.record_id for item in inventory if item.record_id is not None)
-#else:
-#    last_record_id = 1
+
 
 # 2. API Code
 app = FastAPI()
@@ -48,11 +45,7 @@ logger = logging.getLogger(__name__)
 @app.post("/items", response_model=Item)
 def create_item(item: Item):
     
-    # Increment by record_id 1 for each new item.
-    #global last_record_id
-    #last_record_id += 1
-    #item.record_id = last_record_id
-
+    # Check if the item_number already exists
     for existing_item in inventory:
         if existing_item.item_number == item.item_number:
             raise HTTPException(status_code=400, detail="Item with this Item-Number already exists")
@@ -72,14 +65,30 @@ def get_item(item_num: int):
             return item
     raise HTTPException(status_code=404, detail="Item not found")
 
+@app.get("/items/name/{item_name}", response_model=List[Item])
+def get_items_by_name(item_name: str):
+    matching_items = [item for item in inventory if item.name.lower() == item_name.lower()]
+    if not matching_items:
+        raise HTTPException(status_code=404, detail="No items found with the given name")
+    return matching_items
+
+@app.get("/items/category/{item_cat}", response_model=List[Item])
+def get_items_by_name(item_cat: str):
+    matching_items = [item for item in inventory if item.item_category.lower() == item_cat.lower()]
+    if not matching_items:
+        raise HTTPException(status_code=404, detail="No items found with the given item category")
+    return matching_items
+
 @app.put("/items/{item_num}", response_model=Item)
 def update_item(item_num: int, updated_item: Item):
     for index, item in enumerate(inventory):
         if item.item_number == item_num:
+            
             # Check if the item_number is changed and it already exists in another item
             for existing_item in inventory:
                 if existing_item.item_number == updated_item.item_number and existing_item.item_number != item.item_number:
                     raise HTTPException(status_code=400, detail="Item with this Item-Number already exists")
+            
             inventory[index] = updated_item
             save_inventory_to_excel(inventory, inventory_file_name)
             return updated_item
