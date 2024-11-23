@@ -1,7 +1,0 @@
-requests
-flask
-fastapi
-uvicorn
-pydantic
-pandas
-openpyxl
