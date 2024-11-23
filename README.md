@@ -15,11 +15,11 @@ and in BODY write like below:
     "quantity": 22
 }
 
-3. FOr Get Request in POSTMAN use below URL :
+3. For Get Request in POSTMAN use below URL :
 
-To get all records in inverntory excel : ( http://localhost:8000/items  )
+    To get all records in inverntory excel : ( http://localhost:8000/items  )
 
-To get particular item number from inventory excel: ( http://localhost:8000/items/12 )
-(Note: Here 12 is item_number)
+    To get particular item number from inventory excel: ( http://localhost:8000/items/12 )
+    (Note: Here 12 is item_number)
 
 4. For Updating existing records use PUT request with url Like ( http://localhost:8000/items/113 )
