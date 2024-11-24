@@ -7,7 +7,7 @@
 2. To create and add new item records go to POST request in POSTMAN with url (http://localhost:8000/items)
 and in BODY write like below:
 
--- For adding 1 item:- 
+2.1 For adding 1 item:- 
 
 [
     {
@@ -20,7 +20,9 @@ and in BODY write like below:
     }
 ]
 
--- For adding mutiple items at once :- (pass each new item record as a spearate element of array in form of dictionary )
+
+2.2 For adding mutiple items at once :- (pass each new item record as a spearate element of array in form of dictionary )
+
 
 [
     {
