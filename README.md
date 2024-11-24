@@ -21,7 +21,7 @@ and in BODY write like below:
 ]
 
 
-    2.2 For adding mutiple items at once :- (pass each new item record as a spearate element of array in form of dictionary )
+        2.2 For adding mutiple items at once :- (pass each new item record as a spearate element of array in form of dictionary )
 
 
 [
