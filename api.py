@@ -1,17 +1,17 @@
 # 1. Install required packages and import libraries and configuration
 
+# Import configuration
+from config import inventory_file_name, requirements_file
+
 # Install required packages
 import install_packages
-install_packages.install_packages('requirements.txt')
+install_packages.install_packages(requirements_file)
 
 # Import required libraries
 from fastapi import FastAPI, HTTPException
 from typing import List, Optional
 from pydantic import BaseModel, field_validator
 import logging
-
-# Import configuration
-from config import inventory_file_name
 
 # Import functions from load_save_inventory.py
 from load_save_inventory import load_inventory_from_excel, save_inventory_to_excel
